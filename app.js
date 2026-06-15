@@ -6,7 +6,7 @@
 'use strict';
 
 // ─── CONSTANTS ───────────────────────────────────────────────
-const API_KEY   = 'YOUR_OPENROUTER_KEY'; // substituído via env no deploy
+const API_KEY   = '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'; // substituído via env no deploy
 const API_URL   = 'https://openrouter.ai/api/v1/chat/completions';
 const MODEL     = 'meta-llama/llama-3.3-70b-instruct';
 const MAX_HIST  = 10;
