@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0A0A0F" />
+  <meta name="description" content="ResumeAI — Resumos inteligentes com IA em segundos. Escolha o estilo, cole o texto, receba o resumo perfeito." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ResumeAI" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ResumeAI" />
+  <meta property="og:description" content="Resumos inteligentes com IA em segundos." />
+  <meta property="og:type" content="website" />
+
+  <title>ResumeAI</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- INSTALL BANNER -->
+<div id="install-banner" class="install-banner hidden" role="alert" aria-live="polite">
+  <div class="install-banner__inner">
+    <span class="install-banner__icon">⚡</span>
+    <p class="install-banner__text">Instale o ResumeAI no seu celular</p>
+    <button id="install-btn" class="install-banner__btn" aria-label="Instalar aplicativo">Instalar</button>
+    <button id="install-dismiss" class="install-banner__dismiss" aria-label="Fechar">✕</button>
+  </div>
+</div>
+
+<!-- OFFLINE TOAST -->
+<div id="offline-toast" class="offline-toast hidden" role="status" aria-live="polite">
+  <span>📡 Sem conexão — modo offline</span>
+</div>
+
+<!-- APP SHELL -->
+<div class="app" id="app">
+
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <div class="header__logo" aria-label="ResumeAI">
+      <span class="header__logo-mark" aria-hidden="true">R</span>
+      <span class="header__logo-text">Resume<span class="accent">AI</span></span>
+    </div>
+    <div class="header__badges">
+      <span class="badge badge--live" aria-label="Online">● Ao vivo</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 class="hero__title" id="hero-title">
+      Texto longo.<br/>
+      <span class="hero__title--accent">Resumo inteligente.</span>
+    </h1>
+    <p class="hero__sub">Cole qualquer texto, escolha o estilo e deixa a IA trabalhar.</p>
+  </section>
+
+  <!-- MAIN CARD -->
+  <main class="main" role="main" id="main-content">
+    <div class="card" role="region" aria-label="Área de resumo">
+
+      <!-- STYLE SELECTOR -->
+      <section class="style-section" aria-labelledby="style-label">
+        <p class="label" id="style-label">Estilo do resumo</p>
+        <div class="style-grid" role="group" aria-label="Escolha um estilo de resumo">
+          <button class="style-btn active" data-style="conciso" aria-pressed="true">
+            <span class="style-btn__icon" aria-hidden="true">⚡</span>
+            <span class="style-btn__label">Conciso</span>
+          </button>
+          <button class="style-btn" data-style="detalhado" aria-pressed="false">
+            <span class="style-btn__icon" aria-hidden="true">📋</span>
+            <span class="style-btn__label">Detalhado</span>
+          </button>
+          <button class="style-btn" data-style="topicos" aria-pressed="false">
+            <span class="style-btn__icon" aria-hidden="true">📌</span>
+            <span class="style-btn__label">Tópicos</span>
+          </button>
+          <button class="style-btn" data-style="academico" aria-pressed="false">
+            <span class="style-btn__icon" aria-hidden="true">🎓</span>
+            <span class="style-btn__label">Acadêmico</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- INPUT AREA -->
+      <section class="input-section" aria-labelledby="input-label">
+        <div class="input-header">
+          <p class="label" id="input-label">Seu texto</p>
+          <div class="input-actions" role="group" aria-label="Inserir texto via hardware">
+            <button class="hw-btn" id="mic-btn" aria-label="Usar microfone para ditar texto" title="Ditar por voz">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/>
+                <path d="M5 10c0 3.866 3.134 7 7 7s7-3.134 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="19" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span class="hw-btn__label">Voz</span>
+            </button>
+            <button class="hw-btn" id="cam-btn" aria-label="Usar câmera para capturar texto" title="Capturar da câmera">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="12" cy="13" r="4" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <span class="hw-btn__label">Câmera</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="textarea-wrap">
+          <textarea
+            id="text-input"
+            class="textarea"
+            placeholder="Cole aqui seu texto, artigo, e-mail, documento..."
+            aria-label="Texto para resumir"
+            aria-describedby="char-count"
+            maxlength="10000"
+            rows="6"
+          ></textarea>
+          <div class="textarea-overlay" id="listening-overlay" aria-hidden="true">
+            <div class="mic-pulse">
+              <div class="mic-pulse__ring"></div>
+              <div class="mic-pulse__ring mic-pulse__ring--2"></div>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <rect x="9" y="2" width="6" height="12" rx="3" fill="white"/>
+                <path d="M5 10c0 3.866 3.134 7 7 7s7-3.134 7-7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="19" x2="12" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <p>Ouvindo...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-footer">
+          <span class="char-count" id="char-count" aria-live="polite" aria-label="Contagem de caracteres">0 / 10.000</span>
+          <button class="clear-btn" id="clear-btn" aria-label="Limpar texto">Limpar</button>
+        </div>
+      </section>
+
+      <!-- CAMERA MODAL -->
+      <div class="modal hidden" id="cam-modal" role="dialog" aria-modal="true" aria-labelledby="cam-title">
+        <div class="modal__inner">
+          <div class="modal__header">
+            <h2 class="modal__title" id="cam-title">Capturar texto</h2>
+            <button class="modal__close" id="cam-close" aria-label="Fechar câmera">✕</button>
+          </div>
+          <video id="cam-video" class="cam-video" autoplay playsinline aria-label="Preview da câmera"></video>
+          <canvas id="cam-canvas" class="hidden" aria-hidden="true"></canvas>
+          <div class="cam-actions">
+            <button class="cam-capture-btn" id="cam-capture" aria-label="Tirar foto">
+              <span class="cam-capture-btn__ring" aria-hidden="true"></span>
+            </button>
+          </div>
+          <p class="cam-hint">Aponte para um texto e capture. A IA vai extraí-lo automaticamente.</p>
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+      <button class="submit-btn" id="submit-btn" aria-label="Gerar resumo" disabled>
+        <span class="submit-btn__text">Gerar resumo</span>
+        <span class="submit-btn__icon" aria-hidden="true">→</span>
+      </button>
+
+      <!-- RESULT -->
+      <section class="result hidden" id="result-section" aria-labelledby="result-label" aria-live="polite">
+        <div class="result__header">
+          <p class="label" id="result-label">Resumo</p>
+          <div class="result__actions" role="group" aria-label="Ações do resumo">
+            <button class="icon-btn" id="copy-btn" aria-label="Copiar resumo">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+            <button class="icon-btn" id="share-btn" aria-label="Compartilhar resumo">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/>
+                <circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                <circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="2"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="result__body" id="result-body" role="article"></div>
+        <div class="result__stats">
+          <span id="stat-original" class="stat">Original: — palavras</span>
+          <span class="stat-divider" aria-hidden="true">·</span>
+          <span id="stat-summary" class="stat">Resumo: — palavras</span>
+          <span class="stat-divider" aria-hidden="true">·</span>
+          <span id="stat-reduction" class="stat accent">— redução</span>
+        </div>
+      </section>
+
+      <!-- LOADING STATE -->
+      <div class="loading hidden" id="loading-state" aria-label="Gerando resumo..." aria-live="assertive">
+        <div class="loading__dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <p class="loading__text">Analisando texto...</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- HISTORY -->
+  <section class="history-section" id="history-section" aria-labelledby="history-title">
+    <div class="history-header">
+      <h2 class="section-title" id="history-title">Histórico</h2>
+      <button class="clear-history-btn hidden" id="clear-history-btn" aria-label="Limpar histórico">Limpar tudo</button>
+    </div>
+    <div class="history-list" id="history-list" role="list" aria-label="Resumos anteriores">
+      <p class="history-empty" id="history-empty">Seus resumos aparecerão aqui.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer__text">Feito com 🤖 para o Porto Digital · 2026</p>
+  </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
