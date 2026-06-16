@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Meu Localizador</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+
+<meta name="theme-color" content="#2563eb">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📍 Meu Localizador</h1>
+
+<p id="status">
+Clique para obter sua localização
+</p>
+
+<div class="card">
+
+<p><strong>Latitude:</strong></p>
+<p id="lat">---</p>
+
+<p><strong>Longitude:</strong></p>
+<p id="lon">---</p>
+
+</div>
+
+<button onclick="getLocation()">
+Atualizar Localização
+</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
